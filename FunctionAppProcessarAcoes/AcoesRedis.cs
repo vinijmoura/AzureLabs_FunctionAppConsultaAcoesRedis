@@ -27,7 +27,7 @@ namespace FunctionAppConsultaAcoesRedis
             if (String.IsNullOrWhiteSpace(codigo))
             {
                 log.LogError(
-                    $"AcoesRedis HTTP trigger - Codigo de Acao nao informado");
+                    $"AcoesRedis HTTP trigger V2 - Codigo de Acao nao informado");
                 return new BadRequestObjectResult(new
                 {
                     Sucesso = false,
@@ -35,7 +35,7 @@ namespace FunctionAppConsultaAcoesRedis
                 });
             }
 
-            log.LogInformation($"AcoesRedis HTTP trigger - codigo da Acao: {codigo}");
+            log.LogInformation($"AcoesRedis HTTP trigger V2 - codigo da Acao: {codigo}");
             Acao acao = null;
             if (!String.IsNullOrWhiteSpace(codigo))
                 acao = _repository.Get(codigo.ToUpper());
@@ -43,13 +43,13 @@ namespace FunctionAppConsultaAcoesRedis
             if (acao != null)
             {
                 log.LogInformation(
-                    $"AcoesRedis HTTP trigger - Acao: {codigo} | Valor atual: {acao.Valor} | Ultima atualizacao: {acao.Data}");
+                    $"AcoesRedis HTTP trigger V2 - Acao: {codigo} | Valor atual: {acao.Valor} | Ultima atualizacao: {acao.Data}");
                 return new OkObjectResult(acao);
             }
             else
             {
                 log.LogError(
-                    $"AcoesRedis HTTP trigger - Codigo de Acao nao encontrado: {codigo}");
+                    $"AcoesRedis HTTP trigger V2 - Codigo de Acao nao encontrado: {codigo}");
                 return new NotFoundObjectResult(new
                 {
                     Sucesso = false,
